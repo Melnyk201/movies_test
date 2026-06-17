@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movies_test/core/constants/app_dimensions.dart';
+import 'package:movies_test/router/app_router.dart';
 import 'package:movies_test/shared/widgets/app_loading_widget.dart';
 import 'package:movies_test/features/movies/presentation/providers/movies_provider.dart';
 import 'package:movies_test/features/movies/presentation/widgets/movie_card.dart';
-import 'package:movies_test/features/movies/presentation/widgets/page_title.dart';
+import 'package:movies_test/shared/widgets/page_title.dart';
 import 'package:movies_test/shared/widgets/app_error_widget.dart';
 import 'package:movies_test/shared/widgets/app_icon_button.dart';
 
@@ -17,7 +19,7 @@ class AllMoviesPage extends ConsumerWidget {
     final state = notifier.state;
 
     return switch (state.status) {
-      MoviesStatus.loading => const AppLoadingWidget(),
+      MoviesStatus.initial || MoviesStatus.loading => const AppLoadingWidget(),
       MoviesStatus.error => Scaffold(
         body: AppErrorWidget(
           message: state.errorMessage ?? 'Unknown error',
@@ -26,12 +28,12 @@ class AllMoviesPage extends ConsumerWidget {
       ),
       MoviesStatus.data => Scaffold(
         appBar: AppBar(
-          title: PageTitle(),
-          
+          title: PageTitle(title: 'Movie'),
+
           actions: [
             AppIconButton(
               assetPath: 'assets/icons/search.svg',
-              onPressed: () {},
+              onPressed: () => context.push(AppRoutes.searchMovie),
             ),
             AppIconButton(assetPath: 'assets/icons/sun.svg', onPressed: () {}),
             const SizedBox(width: 4),

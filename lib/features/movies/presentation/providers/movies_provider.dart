@@ -28,25 +28,6 @@ class MoviesNotifier extends ChangeNotifier {
     }
     notifyListeners();
   }
-
-  Future<void> searchMovies(String query) async {
-    if (query.isEmpty) {
-      await loadTopRated();
-      return;
-    }
-    state = state.copyWith(status: MoviesStatus.loading);
-    notifyListeners();
-    try {
-      final result = await _repository.searchMovies(query: query);
-      state = state.copyWith(status: MoviesStatus.data, movies: result.results);
-    } catch (e) {
-      state = state.copyWith(
-        status: MoviesStatus.error,
-        errorMessage: e.toString(),
-      );
-    }
-    notifyListeners();
-  }
 }
 
 final moviesProvider = ChangeNotifierProvider<MoviesNotifier>(

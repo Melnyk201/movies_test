@@ -9,19 +9,22 @@ class PosterImage extends StatelessWidget {
   final MovieModel movie;
   const PosterImage({super.key, required this.movie});
 
+  static const _placeholder = ColoredBox(color: AppColors.searchBackground);
+  static const _errorWidget = ColoredBox(
+    color: AppColors.searchBackground,
+    child: Icon(Icons.movie_outlined, color: AppColors.text),
+  );
+
   @override
   Widget build(BuildContext context) {
+    if (movie.posterPath == null) return _errorWidget;
+
     return CachedNetworkImage(
-      imageUrl: ApiConstants.posterUrl(movie.posterPath),
+      imageUrl: ApiConstants.posterUrl(movie.posterPath!),
       fit: BoxFit.cover,
       width: double.infinity,
-      placeholder:
-          (_, __) => const ColoredBox(color: AppColors.searchBackground),
-      errorWidget:
-          (_, __, ___) => const ColoredBox(
-            color: AppColors.searchBackground,
-            child: Icon(Icons.movie_outlined, color: AppColors.text),
-          ),
+      placeholder: (_, __) => _placeholder,
+      errorWidget: (_, __, ___) => _errorWidget,
     );
   }
 }

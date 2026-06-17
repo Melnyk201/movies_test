@@ -23,7 +23,10 @@ abstract final class AppTheme {
           elevation: 0,
           scrolledUnderElevation: 0,
           titleSpacing: 16,
-          iconTheme: IconThemeData(color: AppColors.text),
+          iconTheme: IconThemeData(
+            color: AppColors.text,
+            size: 24,
+          ),
         ),
       );
 

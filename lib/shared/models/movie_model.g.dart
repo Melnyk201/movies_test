@@ -7,7 +7,7 @@ part of 'movie_model.dart';
 // **************************************************************************
 
 MovieModel _$MovieModelFromJson(Map<String, dynamic> json) => MovieModel(
-  posterPath: json['poster_path'] as String,
+  posterPath: json['poster_path'] as String?,
   title: json['title'] as String,
   voteAverage: (json['vote_average'] as num).toDouble(),
 );

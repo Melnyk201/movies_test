@@ -1,6 +1,6 @@
 import 'package:movies_test/shared/models/movie_model.dart';
 
-enum MoviesStatus { loading, data, error }
+enum MoviesStatus { initial, loading, data, error }
 
 class MoviesState {
   const MoviesState({

@@ -4,12 +4,12 @@ part 'movie_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class MovieModel {
-  final String posterPath;
+  final String? posterPath;
   final String title;
   final double voteAverage;
 
   const MovieModel({
-    required this.posterPath,
+    this.posterPath,
     required this.title,
     required this.voteAverage,
   });
