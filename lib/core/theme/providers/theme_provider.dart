@@ -6,27 +6,25 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ThemeNotifier extends ChangeNotifier {
   static const _key = 'theme_is_dark';
 
-  bool _isDark = false;
+  late bool _isDark;
 
   bool get isDark => _isDark;
   ThemeData get theme => _isDark ? AppTheme.dark : AppTheme.light;
 
   ThemeNotifier() {
-    _init();
+    // Одразу беремо системну тему — без флешу при старті
+    _isDark = WidgetsBinding.instance.platformDispatcher.platformBrightness ==
+        Brightness.dark;
+    // Потім перезаписуємо збереженим вибором користувача
+    _loadSaved();
   }
 
-  Future<void> _init() async {
+  Future<void> _loadSaved() async {
     final prefs = await SharedPreferences.getInstance();
-
     if (prefs.containsKey(_key)) {
       _isDark = prefs.getBool(_key)!;
-    } else {
-      final brightness =
-          WidgetsBinding.instance.platformDispatcher.platformBrightness;
-      _isDark = brightness == Brightness.dark;
+      notifyListeners();
     }
-
-    notifyListeners();
   }
 
   Future<void> toggle() async {

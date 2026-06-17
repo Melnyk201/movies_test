@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:movies_test/core/theme/app_colors.dart';
+import 'package:movies_test/shared/widgets/app_loading_indicator.dart';
 import 'package:movies_test/features/movie/presentation/providers/movie_details_provider.dart';
 import 'package:movies_test/features/movie/presentation/widgets/movie_detail_content.dart';
 import 'package:movies_test/shared/widgets/app_back_button.dart';
@@ -28,11 +27,8 @@ class MovieDetailsPage extends ConsumerWidget {
                 : null,
       ),
       body: switch (state.status) {
-        MovieDetailsStatus.loading => AppTopAligned(
-            child: LoadingAnimationWidget.hexagonDots(
-              color: AppColors.text,
-              size: 80,
-            ),
+        MovieDetailsStatus.loading => const AppTopAligned(
+            child: AppLoadingIndicator(),
           ),
         MovieDetailsStatus.error => AppTopAligned(
             child: AppErrorWidget(

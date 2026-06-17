@@ -8,7 +8,7 @@ import 'package:movies_test/core/theme/providers/theme_provider.dart';
 import 'package:movies_test/shared/widgets/app_content_padding.dart';
 import 'package:movies_test/shared/widgets/app_error_widget.dart';
 import 'package:movies_test/shared/widgets/app_icon_button.dart';
-import 'package:movies_test/shared/widgets/app_loading_widget.dart';
+import 'package:movies_test/shared/widgets/app_loading_indicator.dart';
 import 'package:movies_test/shared/widgets/page_title.dart';
 
 class AllMoviesPage extends ConsumerWidget {
@@ -42,7 +42,7 @@ class AllMoviesPage extends ConsumerWidget {
       body: AppContentPadding(
         child: switch (state.status) {
           MoviesStatus.initial || MoviesStatus.loading =>
-            const AppLoadingWidget(),
+            const Center(child: AppLoadingIndicator()),
           MoviesStatus.error => AppErrorWidget(
               message: state.errorMessage ?? 'Unknown error',
               onRetry: () => ref.read(moviesProvider).loadTopRated(),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:movies_test/core/theme/app_colors.dart';
-
+import 'package:movies_test/shared/widgets/app_loading_indicator.dart';
 import 'package:movies_test/features/movies/presentation/providers/search_provider.dart';
 import 'package:movies_test/features/movies/presentation/widgets/movies_grid.dart';
 import 'package:movies_test/features/movies/presentation/widgets/search_results_header.dart';
@@ -65,11 +63,8 @@ class _SearchMoviePageState extends ConsumerState<SearchMoviePage> {
 
     return switch (state.status) {
       MoviesStatus.initial => const SizedBox.shrink(),
-      MoviesStatus.loading => AppTopAligned(
-        child: LoadingAnimationWidget.hexagonDots(
-          color: AppColors.text,
-          size: 48,
-        ),
+      MoviesStatus.loading => const AppTopAligned(
+        child: AppLoadingIndicator(size: 48),
       ),
       MoviesStatus.error => AppTopAligned(
         child: AppErrorWidget(
@@ -92,11 +87,7 @@ class _SearchMoviePageState extends ConsumerState<SearchMoviePage> {
       children: [
         SearchResultsHeader(count: state.movies.length),
 
-        Expanded(
-          child: AppContentPadding(
-            child: MoviesGrid(movies: state.movies),
-          ),
-        ),
+        Expanded(child: MoviesGrid(movies: state.movies)),
       ],
     );
   }
