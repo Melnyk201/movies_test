@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
+import 'package:movies_test/features/movie/presentation/pages/movie_details_page.dart';
 import 'package:movies_test/features/movies/presentation/pages/all_movies_page.dart';
-import 'package:movies_test/features/movies/presentation/pages/movie_details_page.dart';
+
 import 'package:movies_test/features/movies/presentation/pages/search_movie_page.dart';
 
 abstract final class AppRoutes {

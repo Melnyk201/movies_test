@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:movies_test/core/di/injection_container.dart';
 import 'package:movies_test/router/app_router.dart';
 
 void main() {
+  setupDependencies();
   runApp(const MyApp());
 }
 
