@@ -70,7 +70,7 @@ class AppPagination extends StatelessWidget {
             return GestureDetector(
               onTap: isActive ? null : () => onPageChanged(page),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Container(
                   width: 48,
                   height: 48,
