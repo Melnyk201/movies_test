@@ -11,6 +11,7 @@ class MovieCard extends StatelessWidget {
     required this.movie,
     this.isFavorite = false,
     this.onFavoriteTap,
+    this.onTap,
   });
 
   static const double posterHeight = 233;
@@ -19,32 +20,35 @@ class MovieCard extends StatelessWidget {
   final MovieModel movie;
   final bool isFavorite;
   final VoidCallback? onFavoriteTap;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          height: MovieCard.posterHeight,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(15),
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                PosterImage(movie: movie),
-                Positioned(top: 11, right: 14, child: _buildStar()),
-              ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: MovieCard.posterHeight,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  PosterImage(movie: movie),
+                  Positioned(top: 11, right: 14, child: _buildStar()),
+                ],
+              ),
             ),
           ),
-        ),
-
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4),
-          child: MovieTitle(title: movie.title),
-        ),
-        RateWidget(voteAverage: movie.voteAverage),
-      ],
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: MovieTitle(title: movie.title),
+          ),
+          RateWidget(voteAverage: movie.voteAverage),
+        ],
+      ),
     );
   }
 

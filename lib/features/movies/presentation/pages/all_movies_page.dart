@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:movies_test/core/constants/app_dimensions.dart';
-import 'package:movies_test/router/app_router.dart';
-import 'package:movies_test/shared/widgets/app_loading_widget.dart';
 import 'package:movies_test/features/movies/presentation/providers/movies_provider.dart';
-import 'package:movies_test/features/movies/presentation/widgets/movie_card.dart';
-import 'package:movies_test/shared/widgets/page_title.dart';
+import 'package:movies_test/features/movies/presentation/widgets/movies_grid.dart';
+import 'package:movies_test/router/app_router.dart';
+import 'package:movies_test/shared/widgets/app_content_padding.dart';
 import 'package:movies_test/shared/widgets/app_error_widget.dart';
 import 'package:movies_test/shared/widgets/app_icon_button.dart';
+import 'package:movies_test/shared/widgets/app_loading_widget.dart';
+import 'package:movies_test/shared/widgets/page_title.dart';
 
 class AllMoviesPage extends ConsumerWidget {
   const AllMoviesPage({super.key});
@@ -18,40 +18,34 @@ class AllMoviesPage extends ConsumerWidget {
     final notifier = ref.watch(moviesProvider);
     final state = notifier.state;
 
-    return switch (state.status) {
-      MoviesStatus.initial || MoviesStatus.loading => const AppLoadingWidget(),
-      MoviesStatus.error => Scaffold(
-        body: AppErrorWidget(
-          message: state.errorMessage ?? 'Unknown error',
-          onRetry: () => ref.read(moviesProvider).loadTopRated(),
-        ),
-      ),
-      MoviesStatus.data => Scaffold(
-        appBar: AppBar(
-          title: PageTitle(title: 'Movie'),
-
-          actions: [
-            AppIconButton(
-              assetPath: 'assets/icons/search.svg',
-              onPressed: () => context.push(AppRoutes.searchMovie),
+    return Scaffold(
+      appBar: state.status == MoviesStatus.data
+          ? AppBar(
+              title: PageTitle(title: 'Movie'),
+              actions: [
+                AppIconButton(
+                  assetPath: 'assets/icons/search.svg',
+                  onPressed: () => context.push(AppRoutes.searchMovie),
+                ),
+                AppIconButton(
+                  assetPath: 'assets/icons/sun.svg',
+                  onPressed: () {},
+                ),
+                const SizedBox(width: 4),
+              ],
+            )
+          : null,
+      body: AppContentPadding(
+        child: switch (state.status) {
+          MoviesStatus.initial || MoviesStatus.loading =>
+            const AppLoadingWidget(),
+          MoviesStatus.error => AppErrorWidget(
+              message: state.errorMessage ?? 'Unknown error',
+              onRetry: () => ref.read(moviesProvider).loadTopRated(),
             ),
-            AppIconButton(assetPath: 'assets/icons/sun.svg', onPressed: () {}),
-            const SizedBox(width: 4),
-          ],
-        ),
-        body: GridView.builder(
-          padding: AppDimensions.contentPadding,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
-            mainAxisExtent: MovieCard.cardHeight,
-          ),
-          itemCount: state.movies.length,
-          itemBuilder:
-              (context, index) => MovieCard(movie: state.movies[index]),
-        ),
+          MoviesStatus.data => MoviesGrid(movies: state.movies),
+        },
       ),
-    };
+    );
   }
 }

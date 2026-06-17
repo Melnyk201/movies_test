@@ -22,6 +22,7 @@ abstract final class AppTheme {
           foregroundColor: AppColors.text,
           elevation: 0,
           scrolledUnderElevation: 0,
+          centerTitle: false,
           titleSpacing: 16,
           iconTheme: IconThemeData(
             color: AppColors.text,

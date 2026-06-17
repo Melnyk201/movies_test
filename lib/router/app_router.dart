@@ -1,7 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:movies_test/features/movie/presentation/pages/movie_details_page.dart';
 import 'package:movies_test/features/movies/presentation/pages/all_movies_page.dart';
-
 import 'package:movies_test/features/movies/presentation/pages/search_movie_page.dart';
 
 abstract final class AppRoutes {
@@ -10,7 +9,7 @@ abstract final class AppRoutes {
   static const _search = 'search';
   static const searchMovie = '/$_search';
 
-  static const _movieDetails = 'movie/:id';
+  static const _movieDetails = 'movie';
   static const movieDetails = '/$_movieDetails';
 }
 
@@ -28,8 +27,8 @@ final appRouter = GoRouter(
         GoRoute(
           path: AppRoutes._movieDetails,
           builder: (context, state) {
-            final id = state.pathParameters['id'] ?? '';
-            return MovieDetailsPage(movieId: id);
+            final movieId = state.extra as int;
+            return MovieDetailsPage(movieId: movieId);
           },
         ),
       ],
