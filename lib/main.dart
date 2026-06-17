@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_test/core/di/injection_container.dart';
+import 'package:movies_test/core/theme/app_theme.dart';
 import 'package:movies_test/router/app_router.dart';
 
 void main() {
@@ -14,10 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Movies',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: AppTheme.light,
       routerConfig: appRouter,
     );
   }
