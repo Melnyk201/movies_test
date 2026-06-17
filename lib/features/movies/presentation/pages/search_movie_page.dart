@@ -8,6 +8,7 @@ import 'package:movies_test/shared/widgets/app_back_button.dart';
 import 'package:movies_test/shared/widgets/app_content_padding.dart';
 import 'package:movies_test/shared/widgets/app_error_widget.dart';
 import 'package:movies_test/shared/widgets/app_not_found_widget.dart';
+import 'package:movies_test/shared/widgets/app_pagination.dart';
 import 'package:movies_test/shared/widgets/app_search_field.dart';
 import 'package:movies_test/shared/widgets/app_top_aligned.dart';
 import 'package:movies_test/shared/widgets/page_title.dart';
@@ -86,8 +87,16 @@ class _SearchMoviePageState extends ConsumerState<SearchMoviePage> {
       spacing: 16,
       children: [
         SearchResultsHeader(count: state.movies.length),
-
         Expanded(child: MoviesGrid(movies: state.movies)),
+        if (state.totalPages > 1)
+          Padding(
+            padding: const EdgeInsets.only(top: 26, bottom: 34),
+            child: AppPagination(
+              currentPage: state.currentPage,
+              totalPages: state.totalPages,
+              onPageChanged: (page) => ref.read(searchProvider).loadPage(page),
+            ),
+          ),
       ],
     );
   }

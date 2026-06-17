@@ -14,12 +14,18 @@ class MoviesNotifier extends ChangeNotifier {
   final MoviesRepository _repository = getIt<MoviesRepository>();
   MoviesState state = const MoviesState();
 
-  Future<void> loadTopRated() async {
+  Future<void> loadTopRated({int page = 1}) async {
     state = state.copyWith(status: MoviesStatus.loading);
     notifyListeners();
     try {
-      final result = await _repository.getTopRated(page: 1);
-      state = state.copyWith(status: MoviesStatus.data, movies: result.results);
+      final result = await _repository.getTopRated(page: page);
+      state = state.copyWith(
+        status: MoviesStatus.data,
+        movies: result.results,
+        currentPage: result.page,
+        // Invalid page: Pages start at 1 and max at 500. They are expected to be an integer.
+        totalPages: result.totalPages > 500 ? 500 : result.totalPages,
+      );
     } catch (e) {
       state = state.copyWith(
         status: MoviesStatus.error,

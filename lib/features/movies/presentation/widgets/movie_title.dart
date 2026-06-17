@@ -8,7 +8,7 @@ class MovieTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      maxLines: 2,
+      maxLines: 1,
       overflow: TextOverflow.ellipsis,
       style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
     );

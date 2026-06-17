@@ -15,7 +15,7 @@ class MovieCard extends StatelessWidget {
   });
 
   static const double posterHeight = 233;
-  static const double cardHeight = posterHeight + 62; // постер + текст знизу
+  static const double cardHeight = posterHeight + 52;
 
   final MovieModel movie;
   final bool isFavorite;
@@ -26,7 +26,8 @@ class MovieCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Column(
+      child: ClipRect(
+        child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
@@ -48,6 +49,7 @@ class MovieCard extends StatelessWidget {
           ),
           RateWidget(voteAverage: movie.voteAverage),
         ],
+      ),
       ),
     );
   }
