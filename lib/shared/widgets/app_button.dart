@@ -19,6 +19,8 @@ class AppButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isFilled = style == AppButtonStyle.filled;
+    final themeTextColor = Theme.of(context).colorScheme.onSurface;
+    final textColor = isFilled ? AppColors.buttonPrimaryText : themeTextColor;
 
     return SizedBox(
       width: double.infinity,
@@ -27,26 +29,23 @@ class AppButton extends StatelessWidget {
         style: TextButton.styleFrom(
           backgroundColor:
               isFilled ? AppColors.buttonPrimaryBackground : Colors.transparent,
-          foregroundColor: AppColors.buttonPrimaryText,
+          foregroundColor: textColor,
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(100),
             side: isFilled
                 ? BorderSide.none
-                : const BorderSide(
-                    color: AppColors.buttonSecondaryBackground,
-                    width: 1,
-                  ),
+                : BorderSide(color: themeTextColor, width: 1),
           ),
         ),
         child: Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Roboto',
             fontWeight: FontWeight.w600,
             fontSize: 16,
             height: 1,
-            color: AppColors.buttonPrimaryText,
+            color: textColor,
           ),
         ),
       ),

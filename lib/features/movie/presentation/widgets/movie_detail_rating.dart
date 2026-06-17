@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies_test/core/theme/app_colors.dart';
+
 
 class MovieDetailRating extends StatelessWidget {
   const MovieDetailRating({super.key, required this.voteAverage});
@@ -13,7 +13,7 @@ class MovieDetailRating extends StatelessWidget {
       style: const TextStyle(
         fontSize: 10,
         fontWeight: FontWeight.w500,
-        color: AppColors.text,
+      
       ),
     );
   }

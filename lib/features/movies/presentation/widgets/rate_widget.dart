@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:movies_test/core/theme/app_colors.dart';
+
 
 class RateWidget extends StatelessWidget {
   final double voteAverage;
@@ -10,7 +10,7 @@ class RateWidget extends StatelessWidget {
     return Text(
       'Rating: ${voteAverage.toStringAsFixed(0)}',
       style: TextStyle(
-        color: AppColors.text,
+      
         fontSize: 10,
         fontWeight: FontWeight.w500,
       ),

@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:movies_test/core/theme/app_colors.dart';
 
 class MovieTitle extends StatelessWidget {
   final String title;
@@ -11,11 +10,7 @@ class MovieTitle extends StatelessWidget {
       title,
       maxLines: 2,
       overflow: TextOverflow.ellipsis,
-      style: const TextStyle(
-        color: AppColors.text,
-        fontSize: 14,
-        fontWeight: FontWeight.w700,
-      ),
+      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
     );
   }
 }

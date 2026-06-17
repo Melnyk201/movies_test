@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:movies_test/features/movies/presentation/providers/movies_provider.dart';
 import 'package:movies_test/features/movies/presentation/widgets/movies_grid.dart';
 import 'package:movies_test/router/app_router.dart';
+import 'package:movies_test/core/theme/providers/theme_provider.dart';
 import 'package:movies_test/shared/widgets/app_content_padding.dart';
 import 'package:movies_test/shared/widgets/app_error_widget.dart';
 import 'package:movies_test/shared/widgets/app_icon_button.dart';
@@ -17,6 +18,7 @@ class AllMoviesPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final notifier = ref.watch(moviesProvider);
     final state = notifier.state;
+    final isDark = ref.watch(themeProvider).isDark;
 
     return Scaffold(
       appBar: state.status == MoviesStatus.data
@@ -28,8 +30,10 @@ class AllMoviesPage extends ConsumerWidget {
                   onPressed: () => context.push(AppRoutes.searchMovie),
                 ),
                 AppIconButton(
-                  assetPath: 'assets/icons/sun.svg',
-                  onPressed: () {},
+                  assetPath: isDark
+                      ? 'assets/icons/sun.svg'
+                      : 'assets/icons/moon.svg',
+                  onPressed: () => ref.read(themeProvider).toggle(),
                 ),
                 const SizedBox(width: 4),
               ],

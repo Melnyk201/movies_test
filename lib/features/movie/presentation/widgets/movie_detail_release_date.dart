@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:movies_test/core/theme/app_colors.dart';
 
 class MovieDetailReleaseDate extends StatelessWidget {
   const MovieDetailReleaseDate({super.key, required this.releaseDate});
@@ -20,11 +19,7 @@ class MovieDetailReleaseDate extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       _formatDate(releaseDate),
-      style: TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.w400,
-        color: AppColors.text.withValues(alpha: 0.6),
-      ),
+      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
     );
   }
 }
